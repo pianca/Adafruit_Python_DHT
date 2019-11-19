@@ -52,7 +52,7 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 # If this happens try again!
 if humidity is not None and temperature is not None:
     data = {
-        'date':datetime.now(),
+        'date':datetime.datetime.now().__str__(),
         'temp':temperature,
         'humidity':humidity
         }
