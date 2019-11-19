@@ -25,7 +25,7 @@ import requests
 import datetime
 import Adafruit_DHT
 
-API_ENDPOINT = "http://192.168.178.27/api/dht/post"
+API_ENDPOINT = "http://192.168.178.27:62277/dht/save"
 
 # Parse command line parameters.
 sensor_args = { '11': Adafruit_DHT.DHT11,
@@ -52,7 +52,7 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 # If this happens try again!
 if humidity is not None and temperature is not None:
     data = {
-        'date':datetime.datetime.now(),
+        'date':datetime.now(),
         'temp':temperature,
         'humidity':humidity
         }
