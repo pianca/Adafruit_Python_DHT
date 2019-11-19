@@ -25,7 +25,7 @@ import requests
 import datetime
 import Adafruit_DHT
 
-API_ENDPOINT = "http://192.168.178.27:5000/dht/save"
+API_ENDPOINT = "http://192.168.178.27:5000/dht"
 
 # Parse command line parameters.
 sensor_args = { '11': Adafruit_DHT.DHT11,
