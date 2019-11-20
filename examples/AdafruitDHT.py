@@ -57,7 +57,8 @@ if humidity is not None and temperature is not None:
         'humidity':humidity
         }
     print(data)
-    requests.post(url = API_ENDPOINT, data = data) 
+    headers = {'Content-Type': 'application/json'}
+    requests.post(url = API_ENDPOINT, data = data, headers=headers) 
 else:
     print('Failed to get reading. Try again!')
     sys.exit(1)
