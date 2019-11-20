@@ -50,15 +50,18 @@ humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 # the results will be null (because Linux can't
 # guarantee the timing of calls to read the sensor).
 # If this happens try again!
+
+
 if humidity is not None and temperature is not None:
-    data = {
-        'date':datetime.datetime.now().__str__(),
+    payload = {
+        #'date':datetime.datetime.now().__str__(),
         'temp':temperature,
         'humidity':humidity
         }
     print(data)
-    headers = {'Content-Type': 'application/json'}
-    requests.post(url = API_ENDPOINT, data = data, headers=headers) 
+    headers = {'content-type': 'application/json'}
+    response = requests.post(url = API_ENDPOINT, data = json.dumps(payload), headers=headers) 
+    print(response)
 else:
     print('Failed to get reading. Try again!')
     sys.exit(1)
