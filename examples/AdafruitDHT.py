@@ -58,7 +58,7 @@ if humidity is not None and temperature is not None:
         'temp':temperature,
         'humidity':humidity
         }
-    print(data)
+    print(json.dumps(payload))
     headers = {'content-type': 'application/json'}
     response = requests.post(url = API_ENDPOINT, data = json.dumps(payload), headers=headers) 
     print(response)
