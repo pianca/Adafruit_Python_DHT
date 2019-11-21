@@ -26,7 +26,8 @@ import datetime
 import Adafruit_DHT
 import time
 
-API_ENDPOINT = "http://192.168.178.27:62277/dht/Save"
+#API_ENDPOINT = "http://192.168.178.27:62277/dht/Save"
+API_ENDPOINT = "http://smarthome:62277/dht/Save"
 
 # Parse command line parameters.
 sensor_args = { '11': Adafruit_DHT.DHT11,
@@ -42,7 +43,7 @@ else:
 
 while True:
 
-    sleep(2)
+    time.sleep(2)
 
     # Try to grab a sensor reading.  Use the read_retry method which will retry up
     # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
