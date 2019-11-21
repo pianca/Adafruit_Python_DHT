@@ -36,7 +36,7 @@ sensor_args = { '11': Adafruit_DHT.DHT11,
 if len(sys.argv) == 4 and sys.argv[1] in sensor_args:
     sensor = sensor_args[sys.argv[1]]
     pin = sys.argv[2]
-    mesure_freq = (sys.argv[3] + 0.0)
+    #mesure_freq = (sys.argv[3] + 0.0)
 else:
     print('Usage: sudo ./Adafruit_DHT.py [11|22|2302] <GPIO pin number>')
     print('Example: sudo ./Adafruit_DHT.py 2302 4 - Read from an AM2302 connected to GPIO pin #4')
@@ -44,7 +44,7 @@ else:
 
 while True:
 
-    time.sleep(mesure_freq)
+    time.sleep(60)
 
     # Try to grab a sensor reading.  Use the read_retry method which will retry up
     # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
