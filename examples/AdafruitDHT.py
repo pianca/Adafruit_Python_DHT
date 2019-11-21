@@ -24,6 +24,7 @@ import json
 import requests 
 import datetime
 import Adafruit_DHT
+import time
 
 API_ENDPOINT = "http://192.168.178.27:62277/dht/Save"
 
@@ -39,29 +40,24 @@ else:
     print('Example: sudo ./Adafruit_DHT.py 2302 4 - Read from an AM2302 connected to GPIO pin #4')
     sys.exit(1)
 
-# Try to grab a sensor reading.  Use the read_retry method which will retry up
-# to 15 times to get a sensor reading (waiting 2 seconds between each retry).
-humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
+while True:
 
-# Un-comment the line below to convert the temperature to Fahrenheit.
-# temperature = temperature * 9/5.0 + 32
+    sleep(2)
 
-# Note that sometimes you won't get a reading and
-# the results will be null (because Linux can't
-# guarantee the timing of calls to read the sensor).
-# If this happens try again!
+    # Try to grab a sensor reading.  Use the read_retry method which will retry up
+    # to 15 times to get a sensor reading (waiting 2 seconds between each retry).
+    humidity, temperature = Adafruit_DHT.read_retry(sensor, pin)
 
+    if humidity is not None and temperature is not None:
+        payload = {
+            'Date':datetime.datetime.now().__str__(),
+            'Temp':temperature,
+            'Humidity':humidity
+            }
+        print(json.dumps(payload))
+        headers = {'content-type': 'application/json'}
+        response = requests.post(url = API_ENDPOINT, data = json.dumps(payload), headers=headers) 
+        print(response)
+    else:
+        print('Failed to get reading. Try again!')
 
-if humidity is not None and temperature is not None:
-    payload = {
-        'date':datetime.datetime.now().__str__(),
-        'temp':temperature,
-        'humidity':humidity
-        }
-    print(json.dumps(payload))
-    headers = {'content-type': 'application/json'}
-    response = requests.post(url = API_ENDPOINT, data = json.dumps(payload), headers=headers) 
-    print(response)
-else:
-    print('Failed to get reading. Try again!')
-    sys.exit(1)
